@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infografía Interactiva - Castellmar</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .infografia-container {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .infografia-container img {
+      width: 100%;
+      display: block;
+    }
+
+    .punto {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 25px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .tooltip {
+      position: absolute;
+      background: #2ecc71;
+      color: white;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      max-width: 250px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      display: none;
+      z-index: 10;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+
+    footer {
+      text-align: center;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="infografia-container">
+    <img src="img/castelmare.jpg" alt="Infografía Castellmar">
+
+    <!-- Puntos interactivos -->
+    <div class="punto" style="top: 18%; left: 60%;" data-text="Incendio forestal: Crear cortafuegos.">1</div>
+    <div class="punto" style="top: 30%; left: 45%;" data-text="Escasez de agua: Capture y guarde aguas.">2</div>
+    <div class="punto" style="top: 38%; left: 65%;" data-text="Inundaciones recurrentes: Canalizar aguas y reforestar laderas.">3</div>
+    <div class="punto" style="top: 65%; left: 35%;" data-text="Inundaciones: Permita reforestación.">4</div>
+    <div class="punto" style="top: 73%; left: 28%;" data-text="Pérdida de cultivos por inundaciones: Aumentar drenaje y elevar cultivos.">5</div>
+    <div class="punto" style="top: 26%; left: 18%;" data-text="Contaminación del río y pérdida de cultivos por inundaciones: Fomentar control de residuos y protección de márgenes.">6</div>
+
+
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip"></div>
+  </div>
+
+  <footer>
+    Autor: Luis Diego Chavala – 2025
+  </footer>
+
+  <script>
+    const puntos = document.querySelectorAll('.punto');
+    const tooltip = document.getElementById('tooltip');
+
+    puntos.forEach(punto => {
+      punto.addEventListener('mouseenter', (e) => {
+        tooltip.textContent = punto.getAttribute('data-text');
+        tooltip.style.display = 'block';
+        const rect = punto.getBoundingClientRect();
+        tooltip.style.left = `${rect.left + window.scrollX + 30}px`;
+        tooltip.style.top = `${rect.top + window.scrollY - 10}px`;
+        tooltip.style.opacity = '1';
+      });
+
+      punto.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+      });
+    });
+  </script>
+</body>
+</html>
